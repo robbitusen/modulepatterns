@@ -4,28 +4,30 @@ var people = (function(){
 	var people = ["Trump", "Clinton"];
 
 	var $el = $('#peopleModule');
-    var $button = $el.find('button');
-    var $input = $el.find('input');
-    var $ul = $el.find('ul');
-    var template = $el.find('#people-template').html();
+	var $button = $el.find('button');
+	var $input = $el.find('input');
+	var $ul = $el.find('ul');
+	var template = $el.find('#people-template').html();
 
-    $button.on("click", addPerson);
-    $ul.delegate("i.del", "click", deletePerson);
+	$button.on("click", addPerson);
+	$ul.delegate("i.del", "click", deletePerson);
 
-    _render();
+	_render();
 
-    function _render() {
-    	var data = {
-            people: people,
-        };
-        $ul.html(Mustache._render(template, data));
-    }
+	//Private Methods
+	function _render() {
+		var data = {
+			people: people,
+		};
+		$ul.html(Mustache._render(template, data));
+	}
 
+	//Public Methods
 	function addPerson(value) {
 		var name = (typeof value === "string") ? value : $input.val();
 		people.push(name);
-        _render();
-        $input.val('');
+		_render();
+		$input.val('');
 	}
 
 	function deletePerson(event) {
@@ -34,10 +36,10 @@ var people = (function(){
 			i = event;
 		} else {
 			var $remove = $(event.target).closest('li');
-        	i = $ul.find('li').index($remove);
+			i = $ul.find('li').index($remove);
 		}
-        people.splice(i, 1);
-        _render();
+		people.splice(i, 1);
+		_render();
 	}
 
 	//Reveal Public Methods (API)
